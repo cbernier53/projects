@@ -1,0 +1,34 @@
+#selecting all columns + rows
+SELECT *
+FROM `chrome-ux-report.country_us.202302`
+Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com' or origin = 'https://www.timesunion.com'
+or origin = 'https://www.sfgate.com'
+
+#selecting first contentful paint data
+
+SELECT DISTINCT origin, form_factor.name as device, effective_connection_type.name as conn, fcp.start as fcps, fcp.density as fcpd,
+FROM `chrome-ux-report.country_us.202302`, UNNEST(first_contentful_paint.histogram.bin) as fcp
+Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com' or origin = 'https://www.timesunion.com'
+or origin = 'https://www.sfgate.com'
+ORDER BY fcpd ASC
+
+#selecting largest contentful paint data
+
+SELECT DISTINCT origin, lcp.start as lcps, lcp.end as lcpe, lcp.density as lcpd
+FROM `chrome-ux-report.country_us.202302`, UNNEST(largest_contentful_paint.histogram.bin) as lcp
+Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com'  or origin = 'https://www.sfgate.com'
+or origin = 'https://www.timesunion.com'
+ORDER BY lcpd ASC
+
+#selecting first input delay data
+
+SELECT DISTINCT origin, effective_connection_type.name as device, fid.end as fidend, fid.density as density
+FROM `chrome-ux-report.country_us.202302`, UNNEST(first_input.delay.histogram.bin) as fid
+Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com'  or origin = 'https://www.sfgate.com'
+or origin = 'https://www.timesunion.com'
+
+#selecting onload data 
+SELECT DISTINCT origin, onload.start as onstart, onload.end as onend, onload.density as density
+FROM `chrome-ux-report.country_us.202302`, UNNEST(onload.histogram.bin) as onload
+Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com' or origin = 'https://www.timesunion.com'
+or origin = 'https://www.sfgate.com'
