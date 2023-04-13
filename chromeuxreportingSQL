@@ -26,9 +26,13 @@ SELECT DISTINCT origin, effective_connection_type.name as device, fid.end as fid
 FROM `chrome-ux-report.country_us.202302`, UNNEST(first_input.delay.histogram.bin) as fid
 Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com'  or origin = 'https://www.sfgate.com'
 or origin = 'https://www.timesunion.com'
+ORDER BY density ASC
+
 
 #selecting onload data 
 SELECT DISTINCT origin, onload.start as onstart, onload.end as onend, onload.density as density
 FROM `chrome-ux-report.country_us.202302`, UNNEST(onload.histogram.bin) as onload
 Where origin = "https://www.sfchronicle.com" or origin = 'https://www.houstonchronicle.com' or origin = 'https://www.chron.com' or origin = 'https://www.timesunion.com'
 or origin = 'https://www.sfgate.com'
+ORDER BY density ASC
+
